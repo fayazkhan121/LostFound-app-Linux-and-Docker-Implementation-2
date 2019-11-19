@@ -1,0 +1,35 @@
+version: "3.4"
+
+services:
+  lostfound-app:
+    container_name: lostfound-app
+    build:
+      context: ./lost_found
+      dockerfile: Dockerfile
+    ports:
+      - 5001:5000
+    environment:
+      - FLASK_DEBUG=1
+      - APP_SETTINGS=project.config.DevelopmentConfig
+      - DATABASE_URL=mysql://root:1234@lostfound-db:3306/lostfound_db
+      - SECRET_KEY=my_precious
+      - SECURITY_PASSWORD_SALT='my_precious_security'
+      - APP_MAIL_USERNAME=
+      - APP_MAIL_PASSWORD=
+    depends_on:
+      - lostfound-db
+    links:
+      - lostfound-db
+
+  lostfound-db:
+    container_name: lostfound-db
+    build:
+      context: ./lost_found/project/db
+      dockerfile: Dockerfile
+    ports:
+      - 33306:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASES=lostfound_db
+      - MYSQL_USER=lost-found-db
+      - MYSQL_PASSWORD=1234
