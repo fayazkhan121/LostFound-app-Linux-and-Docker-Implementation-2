@@ -7,7 +7,7 @@ flake8===3.5.0
 mysqlclient
 flask-migrate==2.1.1
 Flask-JSON
-pyjwt==1.5.3
+pyjwt==2.4.0
 flask-bcrypt==0.7.1
 itsdangerous
 flask_mail
